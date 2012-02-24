@@ -1,16 +1,16 @@
 Dropbox + CLI alternative to Delicious for saving links.
 
-# Usage examples. #
+#### Usage examples.
 
-## add new link: ##
+#### add new link: 
 
-> $ dl http://stackoverflow.com/questions/2070010/how-to-output-my-ruby-commandline-text-in-different-colours
-> desc? How to output my ruby commandline text in different colours
-> tags (example: ruby, programming, book)? ruby, example, stackoverflow
+$ dl http://stackoverflow.com/questions/2070010/how-to-output-my-ruby-commandline-text-in-different-colours
+desc? How to output my ruby commandline text in different colours
+tags (example: ruby, programming, book)? ruby, example, stackoverflow
 
-## tag search: ##
+#### tag search:
 
-> $ dl ruby
-> Tue Feb 21 16:56:06 2012 http://www.informit.com/articles/article.aspx?p=26943 Manipulating Structured Data in Ruby ["ruby", "arrays", "examples"]
-> Tue Feb 21 16:58:00 2012 http://blog.c42.in/starter-reading-list Starter reading list ["read", "books", "ruby", "programming"]
-> Tue Feb 21 17:19:42 2012 http://stackoverflow.com/questions/2070010/how-to-output-my-ruby-commandline-text-in-different-colours How to output my ruby commandline text in different colours ["ruby", "example", "stackoverflow"]
+$ dl ruby
+Tue Feb 21 16:56:06 2012 http://www.informit.com/articles/article.aspx?p=26943 Manipulating Structured Data in Ruby ["ruby", "arrays", "examples"]
+Tue Feb 21 16:58:00 2012 http://blog.c42.in/starter-reading-list Starter reading list ["read", "books", "ruby", "programming"]
+Tue Feb 21 17:19:42 2012 http://stackoverflow.com/questions/2070010/how-to-output-my-ruby-commandline-text-in-different-colours How to output my ruby commandline text in different colours ["ruby", "example", "stackoverflow"]
