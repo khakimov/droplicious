@@ -8,6 +8,7 @@ Usage examples
 ==============
 
 add new link:
+-------------
 ::
     $ dl http://stackoverflow.com/questions/2070010/how-to-output-my-ruby-commandline-text-in-different-colours
     desc? How to output my ruby commandline text in different colours
@@ -15,6 +16,7 @@ add new link:
 
 
 To install from source:
+-----------------------
 ::
     $ dl ruby
     Tue Feb 21 16:56:06 2012 http://www.informit.com/articles/article.aspx?p=26943 Manipulating Structured Data in Ruby ["ruby", "arrays", "examples"]
