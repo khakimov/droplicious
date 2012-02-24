@@ -4,8 +4,8 @@ require 'uri'
 require 'yaml'
 
 # todo:
-# 0. checking file and if it doesn't exist - create it.
-# 1. help with small description what is this and how it works
+# 0. checking file and if it doesn't exist - create it. [done]
+# 1. help with small description what is this and how it works. [done]
 # 2. figure out about idea to open link at current browser. like $ bus ruby => got 4 links, then type bus ruby 3 and it will open in browser this link
 # 3. refactoring
 
@@ -33,6 +33,9 @@ def p_bookmark(bookmark)
   puts "#{bookmark['date']} #{green(bookmark['url'])} #{red(bookmark['description'])} #{bookmark['tags']}"
 end
 
+puts "Add: ruby droplicious.rb url"
+puts "Get: ruby droplicious.rb tagname"
+
 if (ARGV[0] =~ URI::regexp).nil?
   docs = YAML.load_stream(bookmark_file).documents if YAML.load_stream(bookmark_file)
   if docs
@@ -45,7 +48,6 @@ if (ARGV[0] =~ URI::regexp).nil?
     else
       docs.each { |doc|
         doc['tags'].each { |tag| p_bookmark(doc) if tag =~ /#{ARGV[0]}/ }
-        #p_bookmark(doc) if doc.values.grep(/#{ARGV[0]}/).count > 0
       }
     end
   end
