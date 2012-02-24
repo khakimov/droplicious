@@ -16,7 +16,9 @@ end
 def red(text); colorize(text, 31); end
 def green(text); colorize(text, 32); end
 
-def bookmark_file
+# how to make it better? the main idea of this method is checking the file and 
+# if it exists return the pointer. if not - create and return the pointer.
+def bookmark_file 
   if File.exist? File.expand_path("~/Dropbox/test.txt")
     return open(File.expand_path("~/Dropbox/test.txt"))
   else
@@ -24,6 +26,7 @@ def bookmark_file
   end
 end
 
+# will be better to have only one method that works with file, a?
 def write_to_file(data)
   t = open(File.expand_path("~/Dropbox/test.txt"), "a")
   t.write(data)
