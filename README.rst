@@ -1,7 +1,7 @@
 ==============================
  Dropbox + CLI alternative to Delicious for saving links.
 ==============================
-:Version: 1.0
+:Version: 0.1
 
 
 Usage examples
