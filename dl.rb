@@ -4,8 +4,8 @@ require 'uri'
 require 'yaml'
 
 # todo:
-# 0. checking file and if it doesn't exist - create it. [done]
-# 1. help with small description what is this and how it works. [done]
+# [done] 0. checking file and if it doesn't exist - create it.
+# [done] 1. help with small description what is this and how it works
 # 2. figure out about idea to open link at current browser. like $ bus ruby => got 4 links, then type bus ruby 3 and it will open in browser this link
 # 3. refactoring
 
@@ -16,45 +16,7 @@ end
 def red(text); colorize(text, 31); end
 def green(text); colorize(text, 32); end
 
-# how to make it better? the main idea of this method is checking the file and 
-# if it exists return the pointer. if not - create and return the pointer.
-def bookmark_file 
-  if File.exist? File.expand_path("~/Dropbox/test.txt")
-    return open(File.expand_path("~/Dropbox/test.txt"))
-  else
-    return open(File.expand_path("~/Dropbox/test.txt"), "w")
-  end
-end
-
-# will be better to have only one method that works with file, a?
-def write_to_file(data)
-  t = open(File.expand_path("~/Dropbox/test.txt"), "a")
-  t.write(data)
-end
-
-def p_bookmark(bookmark)
-  puts "#{bookmark['date']} #{green(bookmark['url'])} #{red(bookmark['description'])} #{bookmark['tags']}"
-end
-
-puts "Add: ruby droplicious.rb url"
-puts "Get: ruby droplicious.rb tagname"
-
-if (ARGV[0] =~ URI::regexp).nil?
-  docs = YAML.load_stream(bookmark_file).documents if YAML.load_stream(bookmark_file)
-  if docs
-    if ARGV[0].nil?
-      size = 10
-      size = docs.count if docs.count < 10
-      docs[-(size)..-1].each { |doc|
-        p_bookmark(doc)
-      }
-    else
-      docs.each { |doc|
-        doc['tags'].each { |tag| p_bookmark(doc) if tag =~ /#{ARGV[0]}/ }
-      }
-    end
-  end
-else
+def bookmark_processing
   print "desc? "
   description = STDIN.gets.chomp
   print "tags (example: ruby, programming, book)? "
@@ -66,5 +28,48 @@ else
              "description" => description,
              "tags" => tags
             }
-  write_to_file(result.to_yaml)
+  result.to_yaml
+end
+
+# will be better to have only one method which works with file, a?
+def save_bookmark(data)
+  t = open(File.expand_path("~/Dropbox/test.txt"), "a")
+  t.write(data)
+  puts "saved"
+  t.close
+end
+
+# how to make it better? the main idea of this method is checking the file and 
+# if it exists return the pointer. if not - create and return the pointer.
+def load_bookmarks
+  if File.exist? File.expand_path("~/Dropbox/test.txt")
+    return YAML.load_stream(open(File.expand_path("~/Dropbox/test.txt"))).documents 
+  else
+    puts "Add: ./dl.rb url"
+    puts "Get: ./dl.rb tagname"
+    return open(File.expand_path("~/Dropbox/test.txt"), "w")
+  end
+end
+
+def p_bookmark(bookmark)
+  puts "#{bookmark['date']} #{green(bookmark['url'])} #{red(bookmark['description'])} #{bookmark['tags']}"
+end
+
+if (ARGV[0] =~ URI::regexp).nil?
+  bookmarks = load_bookmarks
+  if bookmarks
+    if ARGV[0].nil?
+      size = 10
+      size = bookmarks.count if bookmarks.count < 10
+      bookmarks[-(size)..-1].each { |bookmark|
+        p_bookmark(bookmark)
+      }
+    else
+      bookmarks.each { |bookmark|
+        bookmark['tags'].each { |tag| p_bookmark(bookmark) if tag =~ /#{ARGV[0]}/ }
+      }
+    end
+  end
+else
+  save_bookmark(bookmark_processing)
 end
