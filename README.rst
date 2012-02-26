@@ -3,6 +3,7 @@
 ==============================
 :Version: 0.1
 
+.. image:: http://pix.am/z2yT.png
 
 Usage examples
 ==============
