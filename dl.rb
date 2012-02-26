@@ -50,9 +50,22 @@ def load_bookmarks
     return open(File.expand_path("~/Dropbox/test.txt"), "w")
   end
 end
+def print_bookmark(bookmark, index)
+  puts "[#{index}] #{bookmark['date']} #{green(bookmark['url'])} #{red(bookmark['description'])} #{bookmark['tags']}"
+end
 
-def p_bookmark(bookmark)
-  puts "#{bookmark['date']} #{green(bookmark['url'])} #{red(bookmark['description'])} #{bookmark['tags']}"
+def show(bookmarks)
+  bookmarks.each_with_index do |bookmark, i|
+    print_bookmark(bookmark, i)
+  end
+end
+
+def search_bookmark(bookmarks, pattern)
+  bookmarks.each_with_index do |bookmark, i|
+    bookmark['tags'].each do |tag| 
+      print_bookmark(bookmark, i) if tag =~ /#{pattern}/ 
+    end 
+  end
 end
 
 if (ARGV[0] =~ URI::regexp).nil?
@@ -61,13 +74,13 @@ if (ARGV[0] =~ URI::regexp).nil?
     if ARGV[0].nil?
       size = 10
       size = bookmarks.count if bookmarks.count < 10
-      bookmarks[-(size)..-1].each { |bookmark|
-        p_bookmark(bookmark)
-      }
+      show(bookmarks)
     else
-      bookmarks.each { |bookmark|
-        bookmark['tags'].each { |tag| p_bookmark(bookmark) if tag =~ /#{ARGV[0]}/ }
-      }
+      if ARGV[0] == "open" && ARGV[1].to_i.is_a?(Fixnum)
+        %x[open #{bookmarks[ARGV[1].to_i]['url']}]
+      else  
+        search_bookmark(bookmarks, ARGV[0])
+      end
     end
   end
 else
