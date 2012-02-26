@@ -72,6 +72,7 @@ def search_bookmark(bookmarks, pattern)
   end
 end
 
+# cryptocode ;( a lot of if/else. unreadable
 if (ARGV[0] =~ URI::regexp).nil?
   bookmarks = load_bookmarks
   if bookmarks
